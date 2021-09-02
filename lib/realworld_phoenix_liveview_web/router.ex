@@ -22,9 +22,11 @@ defmodule RealworldPhoenixLiveviewWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", RealworldPhoenixLiveviewWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", RealworldPhoenixLiveviewWeb do
+    pipe_through :api
+
+    resources("/comments", CommentController, only: [:index, :create])
+  end
 
   # Enables LiveDashboard only for development
   #
