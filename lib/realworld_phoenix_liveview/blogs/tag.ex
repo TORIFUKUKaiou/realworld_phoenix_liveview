@@ -13,5 +13,6 @@ defmodule RealworldPhoenixLiveview.Blogs.Tag do
     tag
     |> cast(attrs, [:tag])
     |> validate_required([:tag])
+    |> unique_constraint(:tag)
   end
 end

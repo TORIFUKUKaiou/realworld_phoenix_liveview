@@ -7,5 +7,7 @@ defmodule RealworldPhoenixLiveview.Repo.Migrations.CreateTags do
 
       timestamps()
     end
+
+    create unique_index(:tags, [:tag])
   end
 end
