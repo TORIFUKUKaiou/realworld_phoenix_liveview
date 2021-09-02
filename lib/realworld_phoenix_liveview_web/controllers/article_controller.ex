@@ -15,6 +15,9 @@ defmodule RealworldPhoenixLiveviewWeb.ArticleController do
   end
 
   def create(conn, %{"article" => article_params}) do
+    user = conn.assigns.current_user
+    article_params = Map.put(article_params, "author_id", user.id)
+
     case Blogs.create_article(article_params) do
       {:ok, article} ->
         conn
@@ -38,6 +41,9 @@ defmodule RealworldPhoenixLiveviewWeb.ArticleController do
   end
 
   def update(conn, %{"id" => id, "article" => article_params}) do
+    user = conn.assigns.current_user
+    article_params = Map.put(article_params, "author_id", user.id)
+
     article = Blogs.get_article!(id)
 
     case Blogs.update_article(article, article_params) do

@@ -8,9 +8,13 @@ defmodule RealworldPhoenixLiveview.Blogs.Article do
   alias RealworldPhoenixLiveview.Blogs.Tag
   alias RealworldPhoenixLiveview.Blogs.ArticleTag
 
+  alias RealworldPhoenixLiveview.Accounts.User
+
   schema "articles" do
     field :body, :string
     field :title, :string
+
+    belongs_to :author, User
 
     has_many :comments, RealworldPhoenixLiveview.Blogs.Comment
 
@@ -24,8 +28,8 @@ defmodule RealworldPhoenixLiveview.Blogs.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:title, :body])
-    |> validate_required([:title, :body])
+    |> cast(attrs, [:title, :body, :author_id])
+    |> validate_required([:title, :body, :author_id])
     |> put_assoc(:tags, parse_tags(attrs))
   end
 
