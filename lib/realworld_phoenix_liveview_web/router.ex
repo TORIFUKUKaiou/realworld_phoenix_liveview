@@ -16,20 +16,6 @@ defmodule RealworldPhoenixLiveviewWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  scope "/", RealworldPhoenixLiveviewWeb do
-    pipe_through(:browser)
-
-    get("/", PageController, :index)
-    resources("/articles", ArticleController, except: [:new, :create, :edit, :update, :delete])
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api", RealworldPhoenixLiveviewWeb do
-    pipe_through :api
-
-    resources("/comments", CommentController, only: [:index])
-  end
-
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -92,5 +78,19 @@ defmodule RealworldPhoenixLiveviewWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+  end
+
+  scope "/", RealworldPhoenixLiveviewWeb do
+    pipe_through(:browser)
+
+    get("/", PageController, :index)
+    resources("/articles", ArticleController, except: [:new, :create, :edit, :update, :delete])
+  end
+
+  # Other scopes may use custom stacks.
+  scope "/api", RealworldPhoenixLiveviewWeb do
+    pipe_through :api
+
+    resources("/comments", CommentController, only: [:index])
   end
 end
