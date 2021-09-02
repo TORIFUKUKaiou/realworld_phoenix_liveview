@@ -6,6 +6,8 @@ defmodule RealworldPhoenixLiveview.Blogs.Article do
     field :body, :string
     field :title, :string
 
+    has_many :comments, RealworldPhoenixLiveview.Blogs.Comment
+
     timestamps()
   end
 

@@ -4,7 +4,8 @@ defmodule RealworldPhoenixLiveview.Blogs.Comment do
 
   schema "comments" do
     field :body, :string
-    field :article_id, :id
+
+    belongs_to :article, RealworldPhoenixLiveview.Blogs.Article
 
     timestamps()
   end
@@ -12,7 +13,7 @@ defmodule RealworldPhoenixLiveview.Blogs.Comment do
   @doc false
   def changeset(comment, attrs) do
     comment
-    |> cast(attrs, [:body])
-    |> validate_required([:body])
+    |> cast(attrs, [:body, :article_id])
+    |> validate_required([:body, :article_id])
   end
 end
