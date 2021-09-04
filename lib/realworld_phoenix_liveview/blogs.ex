@@ -7,6 +7,7 @@ defmodule RealworldPhoenixLiveview.Blogs do
   alias RealworldPhoenixLiveview.Repo
 
   alias RealworldPhoenixLiveview.Blogs.Article
+  alias RealworldPhoenixLiveview.Blogs.Tag
 
   @doc """
   Returns the list of articles.
@@ -205,5 +206,9 @@ defmodule RealworldPhoenixLiveview.Blogs do
   """
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
+  end
+
+  def list_tags() do
+    Repo.all(Tag)
   end
 end

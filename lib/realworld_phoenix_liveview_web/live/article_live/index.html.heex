@@ -34,6 +34,12 @@
           <p>Popular Tags</p>
 
           <div class="tag-list">
+            <%= for tag <- @tags do %>
+             <span style="cursor: pointer;" class="tag-pill tag-default"
+              phx-click="tag"
+              phx-value-tagname={tag.tag}
+              ><%= tag.tag %></span>
+            <% end %>
           </div>
         </div>
       </div>
