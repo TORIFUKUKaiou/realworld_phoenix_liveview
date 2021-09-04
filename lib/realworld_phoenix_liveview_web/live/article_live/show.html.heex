@@ -1,27 +1,69 @@
-<h1>Show Article</h1>
+<div class="article-page">
 
-<%= if @live_action in [:edit] do %>
-  <%= live_modal RealworldPhoenixLiveviewWeb.ArticleLive.FormComponent,
-    id: @article.id,
-    title: @page_title,
-    action: @live_action,
-    article: @article,
-    return_to: Routes.article_show_path(@socket, :show, @article) %>
-<% end %>
+  <div class="banner">
+    <div class="container">
 
-<ul>
+      <h1><%= @article.title  %></h1>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @article.title %>
-  </li>
+      <%= live_component RealworldPhoenixLiveviewWeb.ArticleLive.AuthorComponent,
+        author: @article.author,
+        inserted_at: @article.inserted_at %>
 
-  <li>
-    <strong>Body:</strong>
-    <%= @article.body %>
-  </li>
+    </div>
+  </div>
 
-</ul>
+  <div class="container page">
 
-<span><%= live_patch "Edit", to: Routes.article_show_path(@socket, :edit, @article), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.article_index_path(@socket, :index) %></span>
+    <div class="row article-content">
+      <div class="col-md-12">
+        <%= @article.body %>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <%= live_component RealworldPhoenixLiveviewWeb.ArticleLive.AuthorComponent,
+        author: @article.author,
+        inserted_at: @article.inserted_at %>
+    </div>
+
+    <div class="row">
+
+      <div class="col-xs-12 col-md-8 offset-md-2">
+
+        <form class="card comment-form">
+          <div class="card-block">
+            <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+          </div>
+          <div class="card-footer">
+            <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+            <button class="btn btn-sm btn-primary">
+             Post Comment
+            </button>
+          </div>
+        </form>
+        
+        <%= for comment <- @article.comments do%>
+        <div class="card">
+          <div class="card-block">
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          </div>
+          <div class="card-footer">
+            <a href="" class="comment-author">
+              <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+            </a>
+            &nbsp;
+            <a href="" class="comment-author">Jacob Schmidt</a>
+            <span class="date-posted">Dec 29th</span>
+          </div>
+        </div>
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
