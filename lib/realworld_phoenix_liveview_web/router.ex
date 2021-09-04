@@ -67,7 +67,10 @@ defmodule RealworldPhoenixLiveviewWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
-    resources("/articles", ArticleController, only: [:new, :create, :edit, :update, :delete])
+    live "/articles/new", ArticleLive.Index, :new
+    live "/articles/:id/edit", ArticleLive.Index, :edit
+    live "/articles/:id/show/edit", ArticleLive.Show, :edit
+
     resources("/comments", CommentController, only: [:create])
   end
 
@@ -85,7 +88,8 @@ defmodule RealworldPhoenixLiveviewWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
-    resources("/articles", ArticleController, except: [:new, :create, :edit, :update, :delete])
+    live "/articles", ArticleLive.Index, :index
+    live "/articles/:id", ArticleLive.Show, :show
   end
 
   # Other scopes may use custom stacks.
